@@ -12,6 +12,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     @IBOutlet var imagePickerView: UIImageView!
+    @IBOutlet var cameraBtn: UIBarButtonItem!
     
     let pickerController = UIImagePickerController()
 
@@ -21,6 +22,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         pickerController.delegate = self
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        cameraBtn.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -29,9 +34,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
 
+    
+    // Actions when toolbar buttons are tapped 
+    
     @IBAction func pickAnImage(sender: AnyObject) {
         
         // let pickerController = UIImagePickerController()
+        
+        pickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        
+        self.presentViewController(pickerController, animated: true, completion: nil)
+        
+    }
+    
+    
+    @IBAction func pickCameraImg(sender: AnyObject) {
+        
+        pickerController.sourceType = UIImagePickerControllerSourceType.Camera
         
         self.presentViewController(pickerController, animated: true, completion: nil)
         
